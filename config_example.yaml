@@ -1,0 +1,41 @@
+# Copy this file to config.yaml and modify it as you see fit
+
+debug: true
+backend: "paplay"  # Available backends: paplay (more will be added in the future)
+output_file: "/tmp/evilminalarm.log"
+
+# Times must be specified in 24-hour format (HH:MM)
+start_time: "06:57"
+end_time: "23:02"
+
+sounds_dir: "./sounds"
+sounds:
+  "default":
+    file: "default.wav"  # relative to sounds_dir. Codec support depends on backend
+    volume: 100  # in percent, decimals optional. Must be at least 0
+  "rooster":
+    file: "Alarm_Rooster.ogg"
+    volume: 90
+  "clucks":
+    file: "clucks.mp3"
+    volume: 70
+  "default_faint":
+    file: "default.wav"
+    volume: 75
+  "1812_overture":
+    file: "1812.flac"
+    volume: 95
+
+# Maps a specific minute for every hour to a sound
+minutes:
+  14: "default"
+  27: "clucks"
+  29: "rooster"
+  52: "default"
+  54: "default_faint"
+  57: "clucks"
+  59: "rooster"
+
+# Maps a specific time of day to a sound
+times:
+  "18:12": "1812_overture"

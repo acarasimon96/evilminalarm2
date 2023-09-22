@@ -1,0 +1,13 @@
+__pycache__
+env
+ENV
+venv
+.venv
+.vscode/
+.directory
+
+logs/
+*.log
+sounds/
+*.yaml
+!config_example.yaml
