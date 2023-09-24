@@ -29,11 +29,7 @@ def get_ms() -> float:
 class Core:
     def __init__(self):
         backend_name: str = settings.data.backend
-        player_class = AVAILABLE_BACKENDS.get(backend_name)
-        assert player_class, (
-            f'Backend "{backend_name}" not found.'
-            f" Available backends: {', '.join(AVAILABLE_BACKENDS.keys())}"
-        )
+        player_class = AVAILABLE_BACKENDS[backend_name]
         self.player: PlayerBackend = player_class()
         debug_print(f"Using backend: {backend_name} ({player_class})")
 

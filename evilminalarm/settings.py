@@ -7,6 +7,8 @@ import yaml
 from attrs import define, field
 from cattrs import BaseConverter
 
+from .backends import AVAILABLE_BACKENDS
+
 CONFIG_FILENAME = "config.yaml"
 
 
@@ -26,7 +28,7 @@ class Config:
     sounds: dict[str, SoundSpec] = field(default={})
 
     debug: bool = False
-    backend: str = "paplay"
+    backend: str = field(default="paplay", converter=lambda s: s.lower())
     start_time: time = time(0, 0)
     end_time: time = time(23, 59)
     sounds_dir: str = "./sounds"
@@ -35,6 +37,14 @@ class Config:
     output_file: str = ""
     lag_threshold_ms: float = field(default=75, converter=float)
     target_ms: float = field(default=0, converter=float)
+
+    @backend.validator  # type: ignore
+    def _validate_backend(self, attr, value):
+        if value not in AVAILABLE_BACKENDS:
+            raise ValueError(
+                f'Backend "{value}" not found.'
+                f" Available backends: {', '.join(AVAILABLE_BACKENDS.keys())}"
+            )
 
     @sounds.validator  # type: ignore
     def _validate_sounds(self, attr, value):
