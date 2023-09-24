@@ -5,14 +5,13 @@ from datetime import datetime
 
 from colorama import Fore, Style
 
-from . import __version__
+from . import __version__, settings
 from .core import Core
 from .logging import debug_print, tee
-from .settings import config, load_config
 
 
 def main():
-    load_config()
+    settings.load_config()
 
     tee(
         f"{Fore.RED}{Style.BRIGHT}"
@@ -22,7 +21,7 @@ def main():
         "Press Ctrl+C or send a SIGINT to this process to exit\n"
         f"{Style.RESET_ALL}"
     )
-    debug_print(f"Using sounds directory: {config['sounds_dir']}")
+    debug_print(f"Using sounds directory: {settings.data.sounds_dir}")
 
     Core().run()
 
