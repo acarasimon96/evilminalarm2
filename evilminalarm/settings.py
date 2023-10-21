@@ -59,9 +59,9 @@ def load_config(config_path: str = CONFIG_FILENAME):
     global data
 
     def time_structure_hook(time_str, _) -> time:
-        return (
-            datetime.strptime(time_str, "%H:%M").time().replace(second=0, microsecond=0)
-        )
+        if len(time_str.split(":")) != 3:
+            time_str = f"{time_str}:00"
+        return datetime.strptime(time_str, "%H:%M:%S").time()
 
     loaded_config: dict
     with open(config_path) as f:
